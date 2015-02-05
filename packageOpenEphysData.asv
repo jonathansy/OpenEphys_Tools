@@ -1,0 +1,19 @@
+function [ephysData, fileNames] = packageOpenEphysData(dirname)
+%Created 2015-02-04 by J. Sy 
+%Here we're going to take the load_open_ephys_data function and use it
+%to create an array containing all of the data from every channel in
+%a file. This might be useful for... something, I hope. 
+
+cd(dirname) 
+
+fileList = dir([dirname '\*continuous']);
+fileNames = {fileList.name};
+
+ephysData = cell(numel(fileNames), 2); 
+for i = length(fileNames) 
+    [data, timestamps, info] = load_open_ephys_data(fileNames{i});
+    packageDIT = struct('name',fileNames{i},'data',data,'timestamps',timestamps,'info',info);
+    channelPackage = packageDIT;
+    ephysData{i} = channelPackage;
+end 
+
