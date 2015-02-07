@@ -6,13 +6,13 @@
 %Note: Made to run on all files of a directory. Unlike
 %packageOpenEphysData, everything should be separate 
 
-channelDir = input('Please input the directory you wish to process','s'); 
+channelDir = input('Please input the directory you wish to process ','s'); 
 
-fileList = dir([dirname '\*continuous']);
+fileList = dir([channelDir '\*continuous']);
 fileNames = {fileList.name};
 
 for i = 1:numel(fileNames)
-    [ephysOutput, channelName] = ephysToArray(fileNames(i));
-    v = ephysOutput; 
-    v = genvarname(channelName); 
+    [ephysOutput, channelName] = ephysToArray(fileNames{i});
+    EphysFile.(genvarname(channelName)) = ephysOutput; 
+    
 end 
