@@ -4,7 +4,7 @@ startFileIndex = fileIndex(1); % Which file in the directory list do we start wi
 endFileIndex   = fileIndex(2); % Which file in the directory list do we end with?
 
 % Open a series of files, channel by channel
-chNum        = 41;
+chNum        = 32;
 freqSampling = 19531 ;
 samplesPerChunk = chNum*freqSampling*30;
 badChannels = [];
@@ -64,7 +64,7 @@ end
 % file. If the recordings finish and end less than 1 second apart,
 % timestamps may overlap, breaking the code.
 
-initialtime=datevec(d(startFileIndex).date);
+initialtime=datevec(d(startFileIndex).date); % JS: Don't need this portion. 
 initialtime=uint32((initialtime(4)*60*60+initialtime(5)*60+initialtime(6))*freqSampling); % convert first file timestamp to uint32 stamp
 spkdata=[];
 spikeDetectInput=struct;
@@ -109,7 +109,7 @@ for fnum = startFileIndex:endFileIndex%1:length(d);
     chNotch     = zeros(size(ch,1),32);
     y           = zeros(size(ch,1),32);
     filteredLFP = zeros(size(ch,1),32);    
-
+ filetime = 0; % JS: Generally used to set up time stamps
        for j=1:32
             ch1             = timeseries(ch(:,j),0:1/freqSampling:(length(ch(:,j))-1)/freqSampling);
     %         ch_60           = idealfilter(ch1,[59 61.5],'notch');

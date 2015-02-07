@@ -11,12 +11,12 @@ fileNames = nameList;
 
 ephysLength = load_open_ephys_data(fileNames{1});
 
-ephysData = zeros(32, length(ephysLength));
-ephysTimestamps = zeros(32, length(ephysLength));
+ephysData = zeros(length(ephysLength), 32);
+ephysTimestamps = zeros(length(ephysLength), 32);
 for i = 1:numel(fileNames); 
     [data, timestamps] = load_open_ephys_data(fileNames{i});
     
-    ephysData(i,:) = data;
-    ephysTimestamps(i,:) = timestamps;
+    ephysData(:,i) = data;
+    ephysTimestamps(:,i) = timestamps;
     
 end 
